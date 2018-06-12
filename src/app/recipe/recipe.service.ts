@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {Recipe} from './recipe.model';
 import {HttpClient} from '@angular/common/http';
+import {RECIPES} from './recipes.mock';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,12 @@ export class RecipeService {
   constructor(private httpClient: HttpClient) { }
 
   getRecipes(): Observable<Recipe[]> {
-    return this.httpClient.get<Recipe[]>(this._baseUrl);
+    return of(RECIPES);
+    //return this.httpClient.get<Recipe[]>(this._baseUrl);
   }
 
   getRecipe(id: string): Observable<Recipe> {
-    return this.httpClient.get<Recipe>(this._baseUrl + '/' + id);
+    return of(RECIPES[Number.parseInt(id)]);
+    //return this.httpClient.get<Recipe>(this._baseUrl + '/' + id);
   }
 }
