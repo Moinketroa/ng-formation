@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Recipe} from '../recipe.model';
+import {RecipeService} from '../recipe.service';
+import {ActivatedRoute, Route, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-recipe',
@@ -13,11 +15,12 @@ export class RecipeComponent implements OnInit {
 
   more: boolean;
 
-  constructor() {
+  constructor(private recipeService: RecipeService, private route: ActivatedRoute) {
     this.more = false;
   }
 
   ngOnInit() {
+    this.recipeService.getRecipe(this.route.snapshot.paramMap.get('id')).subscribe(recipe => this.recipe = recipe);
   }
 
   showMore(): void {
